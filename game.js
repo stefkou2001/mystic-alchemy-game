@@ -1,9 +1,20 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-// Ορισμός διαστάσεων του καμβά
-canvas.width = 320;
-canvas.height = 480;
+// Προσαρμογή διαστάσεων του καμβά ανάλογα με την οθόνη
+function resizeCanvas() {
+    if (window.innerWidth <= 768) { // Για κινητά
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    } else { // Για υπολογιστές
+        canvas.width = 800;
+        canvas.height = 600;
+    }
+}
+
+window.addEventListener('resize', resizeCanvas); // Ακούμε για αλλαγές στο μέγεθος της οθόνης
+
+resizeCanvas(); // Εκκίνηση με σωστές διαστάσεις
 
 // Μεταβλητές για το παιχνίδι
 let birdY = canvas.height / 2;
@@ -163,23 +174,23 @@ function showGameOverPopup() {
 
     // Event listener για το κουμπί εξόδου
     document.getElementById('exitButton').addEventListener('click', function() {
-        alert('Σκορ: ' + score); // Εμφάνιση σκορ
         document.body.removeChild(overlay);
+        // Εμφάνιση τελικού σκορ ή επιστροφή στο αρχικό μενού (όχι επανεκκίνηση)
     });
 }
 
-// Συνάρτηση για την επανεκκίνηση του παιχνιδιού
+// Συνάρτηση για επανεκκίνηση του παιχνιδιού
 function restartGame() {
     birdY = canvas.height / 2;
     birdSpeed = 0;
-    score = 0; // Επαναφορά σκορ
-    obstacles.length =    obstacles.length = 0; // Καθαρισμός των εμποδίων
-    obstacleSpeed = 1.0; // Επαναφορά ταχύτητας εμποδίων
-    lastObstacleTime = 0; // Επαναφορά χρόνου τελευταίου εμποδίου
-    lastPointTime = 0; // Επαναφορά χρόνου τελευταίου πόντου
-    requestAnimationFrame(update); // Ξεκινάμε ξανά την ενημέρωση
+    score = 0;
+    obstacles.length = 0;
+    lastObstacleTime = 0;
+    obstacleSpeed = 1.0;
+    lastPointTime = Date.now();
+    update();
 }
 
-// Ξεκινάμε το παιχνίδι
-update();
-
+jewelImage.onload = function() {
+    update(); // Έναρξη του παιχνιδιού όταν φορτωθεί η εικόνα
+};

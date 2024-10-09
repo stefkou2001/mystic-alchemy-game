@@ -1,10 +1,30 @@
-/* Στυλ για το καμβά */
+body {
+    margin: 0; /* Αφαιρούμε τα περιθώρια του body */
+    overflow: hidden; /* Αποτρέπουμε την κύλιση */
+}
+
 #gameCanvas {
     border: 1px solid black;
     display: block;
     margin: 0 auto;
-    width: 100%; /* Προσαρμόζει το πλάτος στον καμβά */
-    height: auto; /* Αυτόματη προσαρμογή ύψους */
+    background-image: url('background.jpg'); /* Εδώ μπορείς να βάλεις την εικόνα του background */
+    background-size: cover; /* Καλύπτει ολόκληρη την επιφάνεια του καμβά */
+}
+
+/* Στυλ για τον καμβά σε κινητές συσκευές */
+@media (max-width: 768px) {
+    #gameCanvas {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Στυλ για τον καμβά σε υπολογιστές */
+@media (min-width: 769px) {
+    #gameCanvas {
+        width: 800px;
+        height: 600px;
+    }
 }
 
 /* Στυλ για την ειδοποίηση */
